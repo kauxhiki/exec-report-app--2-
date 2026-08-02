@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Executive Report Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css?v=20260802">
+</head>
+<body>
+
+<header class="topbar">
+<div class="brand-cluster">
+  <div class="wordmark"><span class="wordmark-mark">/&gt;</span> EXECUTIVE REPORT</div>
+  <span class="brand-tag">by kaushiki</span>
+</div>
+<div class="topbar-note">runs locally · no data leaves this machine</div>
+</header>
+
+<main>
+<div class="bento">
+
+  <!-- HERO -->
+  <div class="tile tile-hero">
+    <p class="eyebrow">csv / xlsx → executive summary + mysql</p>
+    <h1>Your spreadsheet<br>can also be friends<br>with SQL.</h1>
+    <p class="hero-sub">Drop in a CSV or Excel file. Get a written executive summary and a ready-to-run MySQL schema, typed column by column.</p>
+    <a href="#workbench" class="btn btn-primary">Start converting ↓</a>
+  </div>
+
+  <!-- SIGNATURE DIAGRAM -->
+  <div class="tile tile-diagram" aria-hidden="true">
+    <div class="diagram-grid">
+      <div class="grid-row grid-head"><span>Date</span><span>Region</span><span>Revenue</span></div>
+      <div class="grid-row"><span>2026-07-01</span><span>North</span><span>160000</span></div>
+      <div class="grid-row grid-fade"><span>…</span><span>…</span><span>…</span></div>
+    </div>
+    <div class="diagram-arrow"><span class="sweep"></span>→</div>
+    <div class="diagram-code">
+      <div class="code-line code-kw">CREATE TABLE <span class="code-table">sales</span> (</div>
+      <div class="code-line">&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-date">DATE</span></div>
+      <div class="code-line">&nbsp;&nbsp;region&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-string">VARCHAR(50)</span></div>
+      <div class="code-line">&nbsp;&nbsp;revenue&nbsp;&nbsp;&nbsp;<span class="badge badge-int">INT</span></div>
+      <div class="code-line code-kw">);</div>
+    </div>
+  </div>
+
+  <!-- UPLOAD -->
+  <div class="tile tile-upload" id="workbench">
+    <div class="tile-label">01 · upload</div>
+    <label class="dropzone" id="dropzone" for="fileInput">
+      <input type="file" id="fileInput" accept=".csv,.tsv,.xlsx,.xlsm,.xls" multiple hidden>
+      <div class="dropzone-inner">
+        <div class="dropzone-icon">⇪</div>
+        <div class="dropzone-text">
+          <strong>Drop files here</strong>, or click to browse
+          <div class="dropzone-hint">.csv, .tsv, .xlsx, .xls — multiple files</div>
+        </div>
+      </div>
+    </label>
+    <ul class="file-list" id="fileList"></ul>
+  </div>
+
+  <!-- OPTIONS -->
+  <div class="tile tile-options">
+    <div class="tile-label">02 · configure</div>
+    <div class="field">
+      <label for="titleInput">Report title</label>
+      <input type="text" id="titleInput" placeholder="Executive Report" />
+    </div>
+    <div class="field field-toggle">
+      <label for="sqlToggle">Generate MySQL files</label>
+      <input type="checkbox" id="sqlToggle" checked />
+    </div>
+    <div class="field" id="batchField">
+      <label for="batchInput">Rows per INSERT batch</label>
+      <input type="number" id="batchInput" value="500" min="1" />
+    </div>
+  </div>
+
+  <!-- GENERATE -->
+  <div class="tile tile-generate">
+    <button class="btn btn-primary btn-generate" id="generateBtn">
+      <span id="generateLabel">Generate</span>
+    </button>
+    <div class="error-msg" id="errorMsg" hidden></div>
+  </div>
+
+  <!-- RESULTS (bento cells revealed after generation) -->
+  <div class="results-group" id="results" hidden>
+    <div class="tile tile-headline">
+      <div class="tile-label">03 · results</div>
+      <div class="headline-label">Headline</div>
+      <div class="headline-text" id="headlineText"></div>
+    </div>
+
+    <div class="tile tile-report">
+      <div class="tile-label">executive summary</div>
+      <pre class="report-preview" id="reportPreview"></pre>
+      <button class="btn btn-ghost" id="downloadReportBtn">Download report.md</button>
+    </div>
+
+    <div class="tile tile-schema">
+      <div class="tile-label">inferred schema</div>
+      <div id="schemaContainer"></div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<footer class="footer">
+This app processes files entirely on your own machine over localhost — nothing is uploaded anywhere else.
+</footer>
+
+<script src="/app.js?v=20260802"></script>
+</body>
+</html>
